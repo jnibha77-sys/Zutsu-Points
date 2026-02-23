@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  * { margin: 0; padding: 0; }
+  body { background: transparent; overflow: hidden; }
+  img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+</style>
+</head>
+<body>
+  <img id="scoreboard" src="output_stream.png" />
+  <script>
+    const img = document.getElementById('scoreboard');
+    // Reload the image every 5 seconds with a cache-busting param
+    setInterval(() => {
+      const newImg = new Image();
+      newImg.onload = () => {
+        // Only swap src AFTER the new image is fully loaded (no blank frame)
+        img.src = newImg.src;
+      };
+      newImg.src = 'output_stream.png?t=' + Date.now();
+    }, 5000);
+  </script>
+</body>
+</html>
